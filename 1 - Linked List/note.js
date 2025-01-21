@@ -1,44 +1,51 @@
-class Node {
-    constructor(value) {
-        this.value = value; 
-        this.next = null;  
+// Unshift মেথডের কাজের ধাপ:
+// নতুন নোড তৈরি করা:
+// একটি নতুন নোড তৈরি করা হয় যা ব্যবহারকারীর দেয়া ডেটা সংরক্ষণ করবে।
+
+// লিস্ট ফাঁকা কিনা চেক করা:
+
+// যদি লিস্টটি ফাঁকা (head = null) থাকে, নতুন নোডটিকেই head এবং tail হিসেবে সেট করা হয়।
+// কারণ, ফাঁকা লিস্টে প্রথম নোডই হবে প্রথম এবং শেষ।
+// লিস্টে নোড থাকলে:
+
+// নতুন নোডের next প্রপার্টি বর্তমান head এর দিকে পয়েন্ট করে।
+// তারপর নতুন নোডটিকে head হিসেবে সেট করা হয়।
+// দৈর্ঘ্য বৃদ্ধি:
+// লিঙ্কড লিস্টের দৈর্ঘ্য (length) ১ বাড়ানো হয়।
+
+// লিস্ট রিটার্ন করা:
+// পুরো লিঙ্কড লিস্ট রিটার্ন করা হয় যেন এটি আরও প্রসেসিং বা ডিবাগিংয়ে কাজে লাগে।
+
+
+class Node { 
+    constructor(value) { 
+        this.value = value; // নোডের ডেটা ভ্যালু সংরক্ষণ করে
+        this.next = null;   // পরবর্তী নোডের রেফারেন্স শুরুতে null থাকে
     }
 }
 
-class LinkedList {
-    constructor(value) {
-        const newNode = new Node(value);
-        this.head = newNode;
-        this.tail = this.head;
-        this.length = 1;
+class LinkedList { 
+    constructor(value) { 
+        const newNode = new Node(value); // নতুন একটি নোড তৈরি করা
+        this.head = newNode;  // এই নোডটিকে লিস্টের শুরু (head) হিসেবে সেট করা
+        this.tail = this.head; // শুরুতে head এবং tail একই নোডে পয়েন্ট করে
+        this.length = 1; // লিস্টের দৈর্ঘ্য শুরুতে ১ সেট করা
     }
 
-    pop() {
-        if (!this.head) return undefined;
-
-        let current = this.head;
-        let previous = this.head;
-
-        while (current.next) { // যতক্ষণ পর্যন্ত current.next (অর্থাৎ current নোডের পরবর্তী নোড) বিদ্যমান থাকে, লুপ চলবে। 
-                               // অর্থাৎ, এই লুপটি চলতে থাকবে যতক্ষণ না আমরা শেষ নোডে পৌঁছাই।
-            previous = current; //previous এর মান আপডেট করে current-কে ধরে। current-এর আগের নোডকে চিহ্নিত করে রাখে।
-            current = current.next; // current-কে তার পরবর্তী নোডে এগিয়ে নিয়ে যায়। এটি current-কে ক্রমান্বয়ে শেষ নোড পর্যন্ত নিয়ে যায়।
+    unshit(value) { // লিস্টের শুরুতে নতুন নোড যোগ করার জন্য মেথড
+        const newNode = new Node(value); // নতুন একটি নোড তৈরি করা
+        if (!this.head) { // যদি লিস্ট ফাঁকা থাকে
+            this.head = newNode; // নতুন নোডটিকে head সেট করা
+            this.tail = this.head; // একই নোডটিকে tail হিসেবে সেট করা
+        } else { 
+            newNode.next = this.head; // নতুন নোডের next প্রপার্টি বর্তমান head এর দিকে নির্দেশ করবে
+            this.head = newNode; // নতুন নোডটিকে head হিসেবে সেট করা
         }
-
-        this.tail = previous; //এর মান আপডেট করে previous করা হচ্ছে। previous হলো সেই নোড যা লুপ শেষ হওয়ার পর শেষের আগের নোড হয়ে দাঁড়ায়।
-        this.tail.next = null; // নতুন tail নোডের পরবর্তী মানকে null সেট করা হচ্ছে।
-        this.length--; // লিঙ্কড লিস্টের দৈর্ঘ্য (length) ১ কমিয়ে দেওয়া হচ্ছে।
-
-        if (this.length === 0) {
-            this.head = null;
-            this.tail = null;
-        }
-
-        return current;
+        this.length++; // লিস্টের দৈর্ঘ্য ১ বাড়ানো
+        return this; // সম্পূর্ণ লিস্ট রিটার্ন করা
     }
 }
 
-let myLinkedList = new LinkedList(10);
-console.log(myLinkedList); 
-myLinkedList.pop();
-console.log(myLinkedList); 
+let myLinkedList = new LinkedList(10); // নতুন একটি LinkedList তৈরি করা, প্রথম নোডের ভ্যালু ১০
+myLinkedList.unshit(5); // লিস্টের শুরুতে একটি নতুন নোড যোগ করা, যার ভ্যালু ৫
+console.log(myLinkedList); // লিস্টটি কনসোলে প্রিন্ট করা

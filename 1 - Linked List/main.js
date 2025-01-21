@@ -13,31 +13,20 @@ class LinkedList {
         this.length = 1;
     }
 
-    pop() {
-        if (!this.head) return undefined;
-
-        let current = this.head;
-        let previous = this.head;
-
-        while (current.next) {
-            previous = current;
-            current = current.next;
+    unshit(value) {
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = this.head;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
         }
-
-        this.tail = previous;
-        this.tail.next = null;
-        this.length--;
-
-        if (this.length === 0) {
-            this.head = null;
-            this.tail = null;
-        }
-
-        return current;
+        this.length++;
+        return this;
     }
 }
 
 let myLinkedList = new LinkedList(10);
+myLinkedList.unshit(5);
 console.log(myLinkedList);
-myLinkedList.pop();
-console.log(myLinkedList); 
