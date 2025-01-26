@@ -13,20 +13,19 @@ class LinkedList {
         this.length = 1;
     }
 
-    unshit(value) {
-        const newNode = new Node(value);
-        if (!this.head) {
-            this.head = newNode;
-            this.tail = this.head;
-        } else {
-            newNode.next = this.head;
-            this.head = newNode;
+    shift(value) {
+        if (!this.head) return undefined;
+        let temp = this.head;
+        this.head = this.head.next;
+        this.length--;
+        if (this.length === 0) {
+            this.tail = null;
         }
-        this.length++;
-        return this;
+        temp.next = null;
+        return temp;
     }
 }
 
 let myLinkedList = new LinkedList(10);
-myLinkedList.unshit(5);
 console.log(myLinkedList);
+myLinkedList.shift();
