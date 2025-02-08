@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class LinkedList {
+class Linklist {
     constructor(value) {
         const newNode = new Node(value);
         this.head = newNode;
@@ -13,19 +13,34 @@ class LinkedList {
         this.length = 1;
     }
 
-    shift(value) {
-        if (!this.head) return undefined;
-        let temp = this.head;
-        this.head = this.head.next;
-        this.length--;
-        if (this.length === 0) {
-            this.tail = null;
+    push(value) {
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.tail.next = newNode;
+            this.tail = newNode;
         }
-        temp.next = null;
+        this.length++;
+        return this;
+    }
+
+    get(index) {
+        if (index < 0 || index >= this.length) return null;
+
+        let temp = this.head;
+        for (let i = 0; i < index; i++) {
+            return temp.next;
+        }
+
         return temp;
     }
 }
 
-let myLinkedList = new LinkedList(10);
-console.log(myLinkedList);
-myLinkedList.shift();
+let myLinkList = new Linklist(10);
+myLinkList.push(1);
+myLinkList.push(20);
+myLinkList.push(3);
+
+console.log(myLinkList.get(2))
