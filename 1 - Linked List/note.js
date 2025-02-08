@@ -1,11 +1,10 @@
-// Get মেথডের ধাপসমূহ:
+// Set Method-এর ধাপসমূহ:
 // -----------------------------
 
-// ১ - ইনডেক্সটি বৈধ কিনা চেক করা (যদি ইনডেক্স 0 থেকে ছোট বা length থেকে বড় হয়, তাহলে null রিটার্ন করা)।
-// 2 - head নোডকে একটি টেম্পোরারি ভ্যারিয়েবলে (temp) সংরক্ষণ করা।
-// 3 - একটি for লুপ চালিয়ে ইনডেক্স অনুযায়ী নির্দিষ্ট নোড পর্যন্ত পৌঁছানো।
-// 4 - temp কে প্রতিবার পরবর্তী (next) নোডে আপডেট করা।
-// 5 - নির্দিষ্ট ইনডেক্সে পৌঁছে গেলে সেই নোডটি রিটার্ন করা।
+// ১ - ইনডেক্স যাচাই করা → যদি ইনডেক্স ০-এর কম বা লিস্টের দৈর্ঘ্যের সমান বা বেশি হয়, তাহলে false রিটার্ন করা।
+// 2 - নোড খোঁজা → get(index) মেথড ব্যবহার করে নির্দিষ্ট ইনডেক্সের নোড খুঁজে বের করা।
+// 3 - নতুন ভ্যালু সেট করা → যদি নোড পাওয়া যায়, তাহলে তার মান (value) নতুন ভ্যালুতে আপডেট করা।
+// 4 - ফলাফল রিটার্ন করা → সফল হলে true রিটার্ন করা, আর যদি নোড না পাওয়া যায় তাহলে false রিটার্ন করা।
 
 
 class Node {  
@@ -46,14 +45,25 @@ class LinkedList {
 
         return temp; // নির্দিষ্ট index-এর নোড রিটার্ন
     }
+
+    set(index, value) {
+        let temp = this.get(index); // নির্দিষ্ট ইনডেক্সের নোড খুঁজে বের করা
+        if (temp) {
+            temp.value = value; // নোডের মান আপডেট করা
+            return true;
+        }
+        return false; // যদি ইনডেক্স খুঁজে না পাওয়া যায়
+    }
 }
 
-// Linked List তৈরি ও ডাটা যোগ করা
-let myLinkedList = new LinkedList(10); // নতুন Linked List তৈরি, যেখানে প্রথম নোড 10
+// লিংকড লিস্ট তৈরি করা
+let myLinkedList = new LinkedList(10);
+myLinkedList.push(20);
+myLinkedList.push(30);
+myLinkedList.push(40);
 
-myLinkedList.push(1); // 1 যুক্ত করা
-myLinkedList.push(2); // 2 যুক্ত করা
-myLinkedList.push(3); // 3 যুক্ত করা
+console.log("Before set:", myLinkedList.get(2)); // 30 দেখাবে
 
-// নির্দিষ্ট index-এর নোড খোঁজা
-console.log(myLinkedList.get(2)); // index 2-এ থাকা নোড রিটার্ন করবে
+myLinkedList.set(2, 99); // ইনডেক্স 2-এর মান পরিবর্তন করা
+
+console.log("After set:", myLinkedList.get(2)); // 99 দেখাবে

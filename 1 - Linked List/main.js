@@ -31,16 +31,29 @@ class Linklist {
 
         let temp = this.head;
         for (let i = 0; i < index; i++) {
-            return temp.next;
+            temp = temp.next;
         }
 
         return temp;
     }
+
+    set(index, value) {
+        let temp = this.get(index);
+        if (temp) {
+            temp.value = value;
+            return true;
+        }
+        return false;
+    }
 }
 
-let myLinkList = new Linklist(10);
-myLinkList.push(1);
-myLinkList.push(20);
-myLinkList.push(3);
+let myLinkedList = new LinkedList(10);
+myLinkedList.push(20);
+myLinkedList.push(30);
+myLinkedList.push(40);
 
-console.log(myLinkList.get(2))
+console.log("Before set:", myLinkedList.get(2));
+
+myLinkList.set(2, 99);
+
+console.log("After set:", myLinkedList.get(2)); 
