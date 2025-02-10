@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class Linklist {
+class LinkedList {
     constructor(value) {
         const newNode = new Node(value);
         this.head = newNode;
@@ -26,34 +26,35 @@ class Linklist {
         return this;
     }
 
-    get(index) {
-        if (index < 0 || index >= this.length) return null;
+    unshift(value) {
+        const newNode = new Node(value);
+        newNode.next = this.head;
+        this.head = newNode;
+        this.length++;
+        return this;
+    }
+
+    insert(index, value) {
+        if (index < 0 || index > this.length) return false;
+        if (index === 0) return this.unshift(value);
+        if (index === this.length) return this.push(value);
 
         let temp = this.head;
-        for (let i = 0; i < index; i++) {
+        for (let i = 0; i < index - 1; i++) {
             temp = temp.next;
         }
 
-        return temp;
-    }
-
-    set(index, value) {
-        let temp = this.get(index);
-        if (temp) {
-            temp.value = value;
-            return true;
-        }
-        return false;
+        const newNode = new Node(value);
+        newNode.next = temp.next;
+        temp.next = newNode;
+        this.length++;
+        return true;
     }
 }
 
 let myLinkedList = new LinkedList(10);
 myLinkedList.push(20);
 myLinkedList.push(30);
-myLinkedList.push(40);
 
-console.log("Before set:", myLinkedList.get(2));
-
-myLinkList.set(2, 99);
-
-console.log("After set:", myLinkedList.get(2)); 
+myLinkedList.insert(1, 15); 
+console.log(myLinkedList);
